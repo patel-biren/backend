@@ -11,7 +11,7 @@ import { logger } from "../lib";
 export interface PhotoUploadParams {
   userId: string;
   photoType: "closer" | "personal" | "family" | "other" | "governmentId";
-  file: Express.Multer.File;
+  file: any;
   title?: string;
   cleanBuffer?: Buffer | undefined;
   idempotencyKey?: string;
@@ -414,7 +414,7 @@ export async function updatePhotoInArray(
   userId: string,
   photoType: "personal" | "other",
   photoIndex: number,
-  file: Express.Multer.File,
+  file: any,
   title?: string,
   cleanBuffer?: Buffer
 ): Promise<PhotoResponse> {

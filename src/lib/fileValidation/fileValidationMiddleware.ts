@@ -1,4 +1,4 @@
-import multer, { Multer } from "multer";
+import multer from "multer";
 import sharp from "sharp";
 import { logger } from "../common/logger";
 import { env } from "../../config";
@@ -50,7 +50,7 @@ function isValidFileSignature(buffer: Buffer, mimeType: string): boolean {
 function detectPolyglotAttack(buffer: Buffer): boolean {
   // Only check ASCII portions to avoid false positives in binary image data
   const ascii = buffer.toString("ascii", 0, Math.min(buffer.length, 1024));
-  
+
   const suspiciousPatterns = [
     "<?php",
     "<%",
@@ -244,7 +244,7 @@ export async function validateUploadedFile(
 /**
  * Create multer instance for profile photos
  */
-export function createProfilePhotoUpload(): Multer {
+export function createProfilePhotoUpload(): any {
   return multer({
     storage: createMulterStorage("profile"),
     fileFilter: createFileFilter("profile"),
@@ -258,7 +258,7 @@ export function createProfilePhotoUpload(): Multer {
 /**
  * Create multer instance for government ID
  */
-export function createGovernmentIdUpload(): Multer {
+export function createGovernmentIdUpload(): any {
   return multer({
     storage: createMulterStorage("governmentId"),
     fileFilter: createFileFilter("governmentId"),
@@ -272,7 +272,7 @@ export function createGovernmentIdUpload(): Multer {
 /**
  * Create multer instance for multiple files
  */
-export function createMultiplePhotosUpload(maxFiles: number = 10): Multer {
+export function createMultiplePhotosUpload(maxFiles: number = 10): any {
   return multer({
     storage: createMulterStorage("profile"),
     fileFilter: createFileFilter("profile"),
