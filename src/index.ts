@@ -123,7 +123,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 let server: any;
 
-server = app.listen(PORT, () => {
+server = app.listen(PORT, '0.0.0.0', () => {
   logger.info(`Server is running on http://localhost:${PORT}`);
   logger.info(`Environment: ${process.env.NODE_ENV || "development"}`);
   logger.info(

@@ -1,26 +1,33 @@
-
-FROM node:20-slim AS builder
+FROM node:22-slim AS builder
 
 WORKDIR /app
 
 COPY package*.json ./
 COPY tsconfig.json ./
 
-RUN npm ci && npm cache clean --force
+RUN npm ci --only=production=false && npm cache clean --force
 
 COPY src ./src
 
 RUN npm run build
 
-FROM node:20-slim
+FROM node:22-slim
+
+ENV NODE_ENV=production
+
+RUN groupadd -r nodeuser && useradd -r -g nodeuser nodeuser
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci && npm cache clean --force
+RUN npm ci --only=production && npm cache clean --force
 
 COPY --from=builder /app/dist ./dist
+
+RUN chown -R nodeuser:nodeuser /app
+
+USER nodeuser
 
 EXPOSE 3000
 
