@@ -139,7 +139,7 @@ function createFileFilter(photoType: string = "profile") {
 
   return (
     req: Express.Request,
-    file: Express.Multer.File,
+    file: any,
     cb: multer.FileFilterCallback
   ) => {
     // Validate MIME type
@@ -174,7 +174,7 @@ function createFileFilter(photoType: string = "profile") {
  * Validate uploaded file with comprehensive checks
  */
 export async function validateUploadedFile(
-  file: Express.Multer.File,
+  file: any,
   options: FileValidationOptions = {}
 ): Promise<{ valid: boolean; error?: string; cleanBuffer?: Buffer }> {
   const maxSize = options.maxSize || env.MAX_FILE_SIZE;
